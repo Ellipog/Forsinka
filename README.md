@@ -2,7 +2,7 @@
 
 ### What does it do?
 Forsinka is a web application that displays all delayed arrivals to Ski Stasjon. <br>
-The app was mainly made as a learning opportunity in exploring ReactJS, GraphQL, and the EnTur API.<br><br>
+The app was mainly made as a learning opportunity, and to explore ReactJS, GraphQL, and the EnTur API.<br><br>
 
 ### How does it work? 
 It uses the EnTur API to pull aimedArrivals, expectedArrivals, ID's, vehicle names and more. <br>
