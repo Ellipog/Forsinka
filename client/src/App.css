@@ -1,0 +1,172 @@
+body {
+  background-color: #4024bd;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #4024bd;
+}
+
+.forsinkelseBox {
+  border-radius: 15px;
+  background-color: #5235d3;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  width: 40%;
+  margin: 1%;
+  margin-top: 0%;
+  margin-bottom: 2%;
+}
+
+.textElems {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.lineBox {
+  margin: auto;
+  margin-bottom: 3%;
+  margin-left: 1%;
+  font-weight: 700;
+  color: white;
+  font-size: 1.3em;
+  width: 100%;
+}
+
+.expectedBox {
+  border-radius: 15px;
+  margin: auto;
+  margin-left: 1%;
+  font-weight: 600;
+  color: white;
+  font-size: 0.8em;
+}
+
+.diffBox {
+  border-radius: 15px;
+  margin: auto;
+  margin-right: 1%;
+  font-weight: 600;
+  color: white;
+  font-size: 0.8em;
+}
+
+.header {
+  height: 10%;
+  width: 40%;
+  color: white;
+  padding: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+.search {
+  background-color: rgb(211, 223, 250);
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  border: 0px;
+  font-size: 1.5em;
+  padding: 2%;
+  margin-bottom: 2%;
+  color: rgb(27, 27, 27);
+}
+
+.search:focus {
+  border: 0px;
+  outline: none;
+}
+
+.vehicleStop {
+  margin-left: 2%;
+}
+
+.spinning {
+  animation: spin 0.3s linear;
+}
+
+@keyframes spin {
+  20% {
+    rotate: 20deg;
+  }
+  50% {
+    rotate: 200deg;
+  }
+  80% {
+    rotate: 360deg;
+  }
+}
+
+.timeBox {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+@media only screen and (max-width: 600px) {
+  .forsinkelseBox {
+    border-radius: 15px;
+    background-color: #5235d3;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    width: 80%;
+    margin: 3%;
+    margin-top: 0%;
+    margin-bottom: 5%;
+  }
+
+  .header {
+    height: 10%;
+    width: 90%;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+  }
+
+  .lineBox {
+    margin: auto;
+    margin-bottom: 3%;
+    margin-left: 1%;
+    font-weight: 700;
+    color: white;
+    font-size: 1.1em;
+    width: 100%;
+  }
+
+  .expectedBox {
+    border-radius: 15px;
+    margin: auto;
+    margin-left: 1%;
+    font-weight: 600;
+    color: white;
+    font-size: 0.7em;
+  }
+
+  .diffBox {
+    border-radius: 15px;
+    margin: auto;
+    margin-right: 1%;
+    font-weight: 600;
+    color: white;
+    font-size: 0.7em;
+  }
+
+  .search {
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+    border: 0px;
+    font-size: 1.5em;
+    padding: 2%;
+    margin-bottom: 2%;
+    color: rgb(27, 27, 27);
+  }
+}
