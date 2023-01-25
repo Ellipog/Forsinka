@@ -86,11 +86,10 @@ app.use(
 );
 
 app.get("/forsinkelser", (req, res) => {
-  let skip = req.query.skip ? parseInt(req.query.skip) : 0;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 0;
   Forsinkelse.find()
     .sort({ aimedTime: -1 })
-    .skip(skip)
-    .limit(20)
+    .limit(limit)
     .then((data) => {
       const compressed = pako.deflate(JSON.stringify(data));
       res.json(compressed);

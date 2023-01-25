@@ -109,6 +109,20 @@ body {
   width: 60%;
 }
 
+.showMore {
+  border-radius: 15px;
+  background-color: #543ac7;
+  color: white;
+  padding: 1%;
+  width: 40%;
+  margin: 1%;
+  margin-top: 0%;
+  margin-bottom: 2%;
+  font-weight: 600;
+  font-size: 1.6rem;
+  border: 0px;
+}
+
 @media only screen and (max-width: 600px) {
   .forsinkelseBox {
     border-radius: 15px;
@@ -168,5 +182,20 @@ body {
     padding: 2%;
     margin-bottom: 2%;
     color: rgb(27, 27, 27);
+  }
+
+  .showMore {
+    border-radius: 15px;
+    background-color: #543ac7;
+    color: white;
+    padding: 2.5%;
+    width: 80%;
+    height: 10%;
+    margin: 1%;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: 0px;
   }
 }
