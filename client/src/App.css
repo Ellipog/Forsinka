@@ -1,5 +1,11 @@
 body {
   background-color: #4024bd;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .App {
@@ -54,7 +60,7 @@ body {
   margin-right: 1%;
   font-weight: 600;
   color: white;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 
 .header {
@@ -66,7 +72,25 @@ body {
   flex-direction: row;
 }
 
-.search {
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  flex: 1;
+  padding: 0 0.5em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
   background-color: rgb(211, 223, 250);
   border-radius: 15px;
   height: 100%;
@@ -76,11 +100,6 @@ body {
   padding: 2%;
   margin-bottom: 2%;
   color: rgb(27, 27, 27);
-}
-
-.search:focus {
-  border: 0px;
-  outline: none;
 }
 
 .vehicleStop {
@@ -107,6 +126,21 @@ body {
   display: flex;
   flex-direction: column;
   width: 60%;
+}
+
+.showMore {
+  border-radius: 15px;
+  background-color: #543ac7;
+  color: white;
+  padding: 1%;
+  width: 40%;
+  margin: 1%;
+  margin-top: 0%;
+  margin-bottom: 2%;
+  font-weight: 600;
+  font-size: 1.6rem;
+  border: 0px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {
@@ -156,7 +190,7 @@ body {
     margin-right: 1%;
     font-weight: 600;
     color: white;
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
 
   .search {
@@ -168,5 +202,20 @@ body {
     padding: 2%;
     margin-bottom: 2%;
     color: rgb(27, 27, 27);
+  }
+
+  .showMore {
+    border-radius: 15px;
+    background-color: #543ac7;
+    color: white;
+    padding: 2.5%;
+    width: 80%;
+    height: 10%;
+    margin: 1%;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: 0px;
   }
 }

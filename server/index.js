@@ -58,8 +58,8 @@ function fetchData() {
     .then((response) => response.json())
     .then((data) => {
       let estimatedCalls = data.data.stopPlace.estimatedCalls;
-      //estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
-      estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
+      estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
+      //estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
       mappedCalls = estimatedCalls.map((item) => {
         return {
           id: item.serviceJourney.id,
@@ -86,11 +86,14 @@ app.use(
 );
 
 app.get("/forsinkelser", (req, res) => {
-  let skip = req.query.skip ? parseInt(req.query.skip) : 0;
-  Forsinkelse.find()
+  let query = {};
+  if (req.query.lineID) {
+    query = { line: req.query.lineID };
+  }
+  let limit = req.query.limit ? parseInt(req.query.limit) : 0;
+  Forsinkelse.find(query)
     .sort({ aimedTime: -1 })
-    .skip(skip)
-    .limit(20)
+    .limit(limit)
     .then((data) => {
       const compressed = pako.deflate(JSON.stringify(data));
       res.json(compressed);
