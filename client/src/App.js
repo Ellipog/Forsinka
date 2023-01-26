@@ -39,6 +39,8 @@ function App() {
     fetchData();
   }, [lineID]);
 
+  setTimeout(() => fetchData(), 60000);
+
   return (
     <div className="App">
       <div className="header">
