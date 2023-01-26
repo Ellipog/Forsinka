@@ -36,7 +36,7 @@ function fetchData() {
     query {
       stopPlace(id: "NSR:StopPlace:${stopPlaceId}") {
         name
-        estimatedCalls(timeRange: 3600, numberOfDepartures: 70) {
+        estimatedCalls(timeRange: 1000, numberOfDepartures: 70) {
           realtime
           aimedArrivalTime
           expectedArrivalTime
