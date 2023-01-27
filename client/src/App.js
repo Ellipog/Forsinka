@@ -8,10 +8,48 @@ let count = 20;
 function App() {
   const [forsinkelser, setForsinkelser] = useState([]);
   let [lineID, setLineID] = useState("");
-  const lines = ["510", "515", "516", "520", "521", "525", "580", "L2", "L21", "R20"];
+  let [stopPlaceID, setStopPlaceID] = useState("60944");
+  const lines = [
+    {
+      type: "Buss: ",
+      line: "510",
+    },
+    {
+      type: "Buss: ",
+      line: "515",
+    },
+    {
+      type: "Buss: ",
+      line: "516",
+    },
+    {
+      type: "Buss: ",
+      line: "521",
+    },
+    {
+      type: "Buss: ",
+      line: "525",
+    },
+    {
+      type: "Buss: ",
+      line: "580",
+    },
+    {
+      type: "Tog: ",
+      line: "L2",
+    },
+    {
+      type: "Tog: ",
+      line: "L21",
+    },
+    {
+      type: "Tog: ",
+      line: "R20",
+    },
+  ];
 
   async function fetchData() {
-    fetch(`https://forsinkasrv.chillcraft.co/forsinkelser?limit=${count}&lineID=${lineID}`, {
+    fetch(`https://forsinkasrv.chillcraft.co/forsinkelser?limit=${count}&lineID=${lineID}&stopPlaceID=${stopPlaceID}`, {
       method: "GET",
       mode: "cors",
       credentials: "include",
@@ -35,20 +73,39 @@ function App() {
   }
 
   useEffect(() => {
+    console.log(stopPlaceID + lineID);
     fetchData();
     count += 20;
-  }, [lineID]);
+  }, [lineID, stopPlaceID]);
 
   setTimeout(() => fetchData(), 60000);
 
   return (
     <div className="App">
+      <div className="stopList">
+        <button
+          onClick={() => {
+            count = 20;
+            setStopPlaceID(60944);
+          }}
+        >
+          Ski Stasjon
+        </button>
+        <button
+          onClick={() => {
+            count = 20;
+            setStopPlaceID(4977);
+          }}
+        >
+          Ski Næringspark
+        </button>
+      </div>
       <div className="header">
         <select className="select" value={lineID} onChange={(e) => handleLineIDChange(e)}>
-          <option value="">Alle linjer</option>
-          {lines.map((line) => (
-            <option key={line} value={line}>
-              {line}
+          <option value="">Alle buss og tog</option>
+          {lines.map((lines) => (
+            <option key={lines.line} value={lines.line}>
+              {lines.type + lines.line}
             </option>
           ))}
         </select>

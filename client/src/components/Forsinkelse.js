@@ -13,7 +13,7 @@ function Forsinkelse(props) {
         <p className="expectedBox">
           Ankom stasjonen: {new Date(props.expectedTime).toTimeString().slice(0, 5) + " " + " " + " " + new Date(props.expectedTime).getDate() + "/" + (new Date(props.expectedTime).getMonth() + 1)}
         </p>
-        <p className="diffBox">Forsinka med: {Math.ceil((((Date.parse(props.expectedTime) - Date.parse(props.aimedTime)) % 86400000) % 3600000) / 60000) + 1} min</p>
+        <p className="diffBox">Forsinka med: {Math.ceil((((Date.parse(props.expectedTime) - Date.parse(props.aimedTime)) % 86400000) % 3600000) / 60000)} min</p>
       </div>
     </div>
   );

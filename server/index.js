@@ -14,25 +14,28 @@ const mappedCallsSchema = new mongoose.Schema({
   aimedTime: Date,
   expectedTime: Date,
   name: String,
+  stopPlace: String,
 });
 const Forsinkelse = mongoose.model("Forsinkelse", mappedCallsSchema);
 let mappedCalls;
-let stopPlaceId = "60944";
+let stopPlaceIds = ["60944", "4977"];
+// 60944 = Ski stasjon, 4977 = Ski Næringspark
 
 fetchData();
 setInterval(fetchData, 60000);
 
 function fetchData() {
-  fetch("https://api.entur.io/journey-planner/v3/graphql", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "ET-Client-Name": "your-client-name",
-      "ET-Client-ID": "your-client-id",
-    },
-    body: JSON.stringify({
-      variables: {},
-      query: `
+  for (const stopPlaceId of stopPlaceIds) {
+    fetch("https://api.entur.io/journey-planner/v3/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "ET-Client-Name": "your-client-name",
+        "ET-Client-ID": "your-client-id",
+      },
+      body: JSON.stringify({
+        variables: {},
+        query: `
     query {
       stopPlace(id: "NSR:StopPlace:${stopPlaceId}") {
         name
@@ -40,42 +43,41 @@ function fetchData() {
           realtime
           aimedArrivalTime
           expectedArrivalTime
+          destinationDisplay {
+            frontText
+          }
           serviceJourney {
             line {
                 id
             }
             id
           }
-          quay {
-              name
-          }
         }
       }
     }
     `,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      let estimatedCalls = data.data.stopPlace.estimatedCalls;
-      estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
-      //estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
-      mappedCalls = estimatedCalls.map((item) => {
-        return {
-          id: item.serviceJourney.id,
-          line: item.serviceJourney.line.id.replace("RUT:Line:", "").replace("NSB:Line:", ""),
-          aimedTime: Date.parse(item.aimedArrivalTime),
-          expectedTime: Date.parse(item.expectedArrivalTime),
-          name: item.quay.name,
-          // timeDiff: expectedTime - aimedTime,
-          // diffMin: Math.round(((timeDiff % 86400000) % 3600000) / 60000),
-        };
-      });
-      mappedCalls.forEach((data) => {
-        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
-      });
+      }),
     })
-    .catch((error) => console.error(error));
+      .then((response) => response.json())
+      .then((data) => {
+        let estimatedCalls = data.data.stopPlace.estimatedCalls;
+        estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
+        mappedCalls = estimatedCalls.map((item) => {
+          return {
+            id: item.serviceJourney.id,
+            line: item.serviceJourney.line.id.replace("RUT:Line:", "").replace("NSB:Line:", ""),
+            aimedTime: Date.parse(item.aimedArrivalTime),
+            expectedTime: Date.parse(item.expectedArrivalTime),
+            name: item.destinationDisplay.frontText,
+            stopPlace: stopPlaceId,
+          };
+        });
+        mappedCalls.forEach((data) => {
+          Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
+        });
+      })
+      .catch((error) => console.error(error));
+  }
 }
 
 app.use(
@@ -88,7 +90,9 @@ app.use(
 app.get("/forsinkelser", (req, res) => {
   let query = {};
   if (req.query.lineID) {
-    query = { line: req.query.lineID };
+    query = { line: req.query.lineID, stopPlace: req.query.stopPlaceID };
+  } else {
+    query = { stopPlace: req.query.stopPlaceID };
   }
   let limit = req.query.limit ? parseInt(req.query.limit) : 0;
   Forsinkelse.find(query)
