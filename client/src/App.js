@@ -8,7 +8,7 @@ let count = 20;
 function App() {
   const [forsinkelser, setForsinkelser] = useState([]);
   let [lineID, setLineID] = useState("");
-  const lines = ["510", "515", "520", "521", "525", "580", "L2", "L21", "R20"];
+  const lines = ["510", "515", "516", "520", "521", "525", "580", "L2", "L21", "R20"];
 
   async function fetchData() {
     fetch(`https://forsinkasrv.chillcraft.co/forsinkelser?limit=${count}&lineID=${lineID}`, {
