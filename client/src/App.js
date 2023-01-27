@@ -26,7 +26,6 @@ function App() {
           return new Date(b.expectedTime) - new Date(a.expectedTime);
         });
         setForsinkelser(data);
-        count += 20;
       });
   }
 
@@ -37,6 +36,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
+    count += 20;
   }, [lineID]);
 
   setTimeout(() => fetchData(), 60000);
