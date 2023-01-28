@@ -98,8 +98,8 @@ select::-ms-expand {
   border: 0px;
   font-size: 1.5em;
   padding: 2%;
-  margin-bottom: 2%;
   color: rgb(27, 27, 27);
+  margin: 2%;
 }
 
 .vehicleStop {
@@ -141,6 +141,16 @@ select::-ms-expand {
   font-size: 1.6rem;
   border: 0px;
   cursor: pointer;
+}
+
+.footer {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .select {
+    font-size: 0.8em;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -213,9 +223,54 @@ select::-ms-expand {
     height: 10%;
     margin: 1%;
     margin-top: 0%;
-    margin-bottom: 5%;
+    margin-bottom: 30%;
     font-weight: 600;
     font-size: 1.2rem;
     border: 0px;
+  }
+
+  .select {
+    background-color: rgb(211, 223, 250);
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+    border: 0px;
+    font-size: 1.1em;
+    padding: 2%;
+    color: rgb(27, 27, 27);
+    margin: 2%;
+  }
+
+  .selectStopPlace {
+    display: none;
+  }
+
+  .footer {
+    height: 13%;
+    width: 100vw;
+    background-color: #351aac;
+    bottom: 0%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 30px 0px 0px;
+  }
+
+  .footerButton {
+    background-color: transparent;
+    border: 0px;
+    color: white;
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+
+  .footerIcon {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+
+  .activeFooterButton {
+    text-decoration: underline;
   }
 }
